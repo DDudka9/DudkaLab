@@ -1,0 +1,625 @@
+/* ============================================================================
+   DUDKA LAB · Stacked Cards style
+   Cream backdrop, floating capsule nav, every section is a rounded card.
+   Original Helvetica Neue typography (regular body, light h1/h2).
+   ============================================================================ */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg:           #efece2;
+  --bg-alt:       #f3f3f0;
+  --card:         #ffffff;
+  --card-radius:  18px;
+  --card-shadow:  0 1px 3px rgba(0,0,0,0.04), 0 6px 24px rgba(0,0,0,0.04);
+
+  --text:         #1a1a1a;
+  --muted:        #4a4a4a;
+  --muted-2:      #6a6a6a;
+
+  --green:        #00b386;
+  --green-light:  #ccf5e8;
+  --green-dark:   #00805e;
+
+  --magenta:      #c850c0;
+  --magenta-light:#f5d6f2;
+  --magenta-dark: #8a2387;
+
+  --blue:         #4a90d9;
+  --blue-light:   #d6e6f7;
+  --blue-dark:    #2a5a9e;
+
+  --hero-bg:      #0c0c0c;
+  --border:       #d8d8d2;
+  --border-soft:  #ececea;
+
+  --lehigh-brown: #502d18;
+  --lehigh-gold:  #a48337;
+
+  --font:         'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --max-width:    1200px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  font-weight: 400;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.7;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: var(--green-dark); text-decoration: none; transition: color 0.15s; }
+a:hover { color: var(--magenta-dark); text-decoration: underline; }
+img { max-width: 100%; height: auto; display: block; }
+strong, b { font-weight: 500; }
+em { font-style: italic; }
+
+/* ============================================================================
+   FLOATING CAPSULE NAV
+   ============================================================================ */
+nav {
+  position: sticky; top: 1.25rem; z-index: 100;
+  width: max-content; max-width: calc(100% - 2rem);
+  margin: 1.25rem auto 0;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  border-radius: 999px;
+  padding: 0.5rem 0.5rem 0.5rem 1.2rem;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+nav .nav-inner { display: flex; align-items: center; gap: 0.4rem; }
+nav .lab-name {
+  font-size: 0.92rem; font-weight: 500; padding-right: 1rem;
+  border-right: 1px solid rgba(0,0,0,0.1);
+  margin-right: 0.4rem; color: var(--text);
+}
+nav .lab-name .green   { color: var(--green); font-weight: 400; }
+nav .lab-name .magenta { color: var(--magenta); font-weight: 400; }
+nav .lab-name .blue    { color: var(--blue);   font-weight: 400; }
+nav ul { list-style: none; display: flex; gap: 0.2rem; }
+nav ul a {
+  display: block; padding: 0.4rem 0.85rem;
+  font-size: 0.84rem; color: var(--muted);
+  border-radius: 999px; font-weight: 400;
+  transition: background 0.15s, color 0.15s;
+}
+nav ul a:hover { color: var(--text); text-decoration: none; }
+nav ul a.active { background: var(--text); color: #fff; }
+
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+.nav-toggle span {
+  display: block; width: 22px; height: 2px; background: var(--text);
+  margin: 5px 0; transition: 0.3s;
+}
+
+/* ============================================================================
+   THE CANVAS
+   ============================================================================ */
+.canvas {
+  max-width: var(--max-width); margin: 2rem auto;
+  padding: 0 1.25rem 4rem;
+  display: flex; flex-direction: column; gap: 1.25rem;
+}
+
+/* ============================================================================
+   HERO (home page) — uses hero.png as background image
+   The hero.png is a fluorescent cell on black; the image is positioned to the
+   right so the cell is visible next to the text on the left.
+   ============================================================================ */
+.hero {
+  background: var(--hero-bg); color: #fff;
+  border-radius: var(--card-radius);
+  padding: 4rem 2.75rem 4.5rem;
+  position: relative; overflow: hidden;
+  box-shadow: var(--card-shadow);
+  isolation: isolate;
+}
+.hero .hero-bg {
+  position: absolute; inset: 0;
+  background: url('../images/hero.png') right center / cover no-repeat;
+  opacity: 1;
+  z-index: 1;
+}
+/* Soft left-to-right gradient — dark over the text, transparent over the cell */
+.hero .hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg,
+    rgba(12,12,12,0.92) 0%,
+    rgba(12,12,12,0.85) 35%,
+    rgba(12,12,12,0.40) 65%,
+    rgba(12,12,12,0.10) 100%);
+  z-index: 2;
+}
+.hero .hero-content {
+  position: relative; z-index: 3;
+  max-width: 640px;
+}
+.hero h1 {
+  font-size: 3.4rem; color: #fff; line-height: 1.12;
+  margin-bottom: 1.2rem; font-weight: 300; letter-spacing: -0.02em;
+}
+.hero h1 .green   { color: var(--green); }
+.hero h1 .magenta { color: var(--magenta); }
+.hero h1 .blue    { color: var(--blue); }
+.hero .tagline {
+  font-size: 1.1rem; color: rgba(255,255,255,0.92); font-weight: 400;
+  line-height: 1.7; max-width: 600px; margin: 0 0 1.5rem 0;
+}
+.hero .affiliation {
+  font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-top: 1rem;
+}
+.hero .affiliation a { color: rgba(255,255,255,0.95); }
+
+/* ============================================================================
+   SECTION CARDS
+   ============================================================================ */
+section {
+  background: var(--card);
+  border-radius: var(--card-radius);
+  padding: 2.5rem 2.25rem;
+  box-shadow: var(--card-shadow);
+  max-width: none; margin: 0;
+}
+section h2 {
+  font-size: 1.85rem; color: var(--text);
+  font-weight: 300; letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
+}
+section h2::after { display: none; }
+section p { max-width: 760px; color: var(--muted); margin-bottom: 1rem; font-size: 1rem; }
+
+/* ============================================================================
+   LAB OVERVIEW (paragraph + LabOverview.png on home)
+   The schematic has a white background, so we drop the panel and let the
+   image sit flush within the white card — no rectangle around it.
+   ============================================================================ */
+.lab-overview {
+  display: grid; grid-template-columns: 1fr 1.4fr;
+  gap: 2.5rem; align-items: center; margin-top: 0.5rem;
+}
+.lab-overview p { max-width: none; }
+.lab-overview .overview-figure {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+.lab-overview .overview-figure img {
+  width: 100%;
+  display: block;
+}
+@media (max-width: 768px) { .lab-overview { grid-template-columns: 1fr; gap: 1.5rem; } }
+
+/* ============================================================================
+   RESEARCH OVERVIEW FIGURE (on the Research page)
+   Same approach as lab-overview: schematic has white bg, drop the panel
+   so it blends with the white parent card.
+   ============================================================================ */
+.research-overview-figure {
+  background: transparent;
+  padding: 0;
+  margin: 1rem 0 1.5rem;
+}
+.research-overview-figure img { width: 100%; display: block; }
+.research-overview-figure figcaption {
+  font-size: 0.88rem; color: var(--muted-2); margin-top: 0.8rem;
+  text-align: center; max-width: 760px; margin-left: auto; margin-right: auto;
+  line-height: 1.55;
+}
+
+/* ============================================================================
+   DIRECTION CARDS (home + research)
+   ============================================================================ */
+.directions, .directions-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;
+}
+.direction-card, .direction-block {
+  background: var(--bg-alt); border-radius: 12px; padding: 1.5rem;
+  border-left: 3px solid var(--border);
+  transition: box-shadow 0.2s, transform 0.2s;
+  display: flex; flex-direction: column;
+}
+.direction-card:hover, .direction-block:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06); transform: translateY(-1px);
+}
+.direction-card.dir-blue,    .direction-block.dir-blue    { border-left-color: var(--blue); }
+.direction-card.dir-green,   .direction-block.dir-green   { border-left-color: var(--green); }
+.direction-card.dir-magenta, .direction-block.dir-magenta { border-left-color: var(--magenta); }
+
+.direction-card .schematic {
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 180px;
+}
+.direction-card .schematic img {
+  max-width: 100%; max-height: 220px; height: auto; width: auto;
+  object-fit: contain;
+}
+.direction-card h3, .direction-block h3 {
+  font-size: 1.1rem; color: var(--text);
+  margin-bottom: 0.5rem; font-weight: 500;
+}
+.direction-card p, .direction-block p {
+  font-size: 0.92rem; color: var(--muted); line-height: 1.65;
+  max-width: none; margin-bottom: 0.6rem;
+}
+.direction-card p:last-child, .direction-block p:last-child { margin: 0; }
+
+@media (max-width: 900px) {
+  .directions, .directions-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================================
+   APPROACHES — single row of 4 cards (matches the directions row)
+   ============================================================================ */
+.approaches {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.approach-card {
+  background: var(--bg-alt);
+  border-radius: 12px;
+  padding: 1.25rem 1.1rem;
+  border-left: 3px solid var(--border);
+}
+.approach-card .tag { margin-bottom: 0.5rem; }
+.approach-card h3 {
+  font-size: 1rem; font-weight: 500; margin-bottom: 0.4rem; color: var(--text);
+  line-height: 1.3;
+}
+.approach-card p {
+  font-size: 0.85rem; color: var(--muted); margin: 0; max-width: none;
+}
+@media (max-width: 900px) {
+  .approaches { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .approaches { grid-template-columns: 1fr; }
+}
+
+/* ============================================================================
+   TAGS
+   ============================================================================ */
+.tag {
+  display: inline-block; font-size: 0.7rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 3px 10px; border-radius: 4px; margin-bottom: 0.75rem;
+}
+.tag-green   { color: var(--green-dark);   background: var(--green-light); }
+.tag-magenta { color: var(--magenta-dark); background: var(--magenta-light); }
+.tag-blue    { color: var(--blue-dark);    background: var(--blue-light); }
+
+/* ============================================================================
+   PUBLICATION LIST
+   ============================================================================ */
+.pub-list { list-style: none; margin-top: 0.5rem; }
+.pub-list li {
+  padding: 1.1rem 0; border-bottom: 1px solid var(--border-soft);
+  font-size: 0.94rem; color: var(--muted); line-height: 1.65;
+}
+.pub-list li:last-child { border-bottom: none; }
+.pub-list li.with-vignette {
+  display: grid; grid-template-columns: 160px 1fr; gap: 1.25rem; align-items: center;
+}
+.pub-list .pub-vignette {
+  width: 100%; aspect-ratio: 1.2 / 1;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden; padding: 4px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border-soft);
+}
+.pub-list .pub-vignette img { width: 100%; height: 100%; object-fit: contain; }
+.pub-list .pub-text { min-width: 0; }
+.pub-list .pub-title   { font-weight: 500; color: var(--text); }
+.pub-list .pub-journal { font-style: italic; color: var(--magenta-dark); font-weight: 400; }
+.pub-list .pub-year    { color: var(--muted-2); font-size: 0.85rem; }
+.pub-list a            { color: var(--green-dark); }
+
+@media (max-width: 720px) {
+  .pub-list li.with-vignette { grid-template-columns: 1fr; gap: 0.75rem; }
+  .pub-list .pub-vignette { max-width: 240px; }
+}
+
+.pub-section-heading {
+  font-size: 1.1rem; font-weight: 500; color: var(--text);
+  margin-top: 2.5rem; margin-bottom: 0.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--green-light);
+}
+.pub-section-heading:first-of-type { margin-top: 0.5rem; }
+
+/* ============================================================================
+   PEOPLE — placeholder card uses cellimage.png with NO white border
+   ============================================================================ */
+.people-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem; margin-top: 1rem; justify-items: center;
+}
+.person-card { text-align: center; max-width: 240px; }
+.person-card .photo {
+  width: 180px; height: 180px; border-radius: 50%; object-fit: cover; object-position: center;
+  margin: 0 auto 1rem; border: none; background: transparent;
+  display: block;
+}
+/* Real headshots get a subtle green ring; placeholder ("This could be you")
+   keeps NO border so the dark cell image isn't surrounded by white. */
+.person-card:not(.is-placeholder) .photo {
+  border: 3px solid var(--green-light); background: #eee;
+}
+.person-card h3 { font-size: 1.1rem; font-weight: 500; margin-bottom: 0.2rem; }
+.person-card .role { font-size: 0.9rem; color: var(--muted); }
+
+/* ============================================================================
+   PI BIO
+   ============================================================================ */
+.pi-bio {
+  display: grid; grid-template-columns: 200px 1fr;
+  gap: 2.5rem; align-items: start;
+}
+.pi-bio .pi-photo {
+  width: 200px; height: 200px; border-radius: 50%;
+  object-fit: cover; border: 3px solid var(--green-light);
+}
+.pi-bio .pi-text h3 { font-size: 1.25rem; font-weight: 500; margin-bottom: 0.2rem; }
+.pi-bio .pi-text .pi-role {
+  color: var(--muted-2); font-size: 0.95rem; margin-bottom: 1rem;
+}
+.pi-bio .pi-text dl {
+  margin-top: 0.5rem; display: grid;
+  grid-template-columns: 100px 1fr; row-gap: 0.5rem; column-gap: 1rem;
+  font-size: 0.9rem;
+}
+.pi-bio .pi-text dt {
+  font-weight: 500; color: var(--green-dark);
+  text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.06em;
+  padding-top: 2px;
+}
+.pi-bio .pi-text dd { color: var(--muted); margin: 0; }
+.pi-bio .pi-text dd em { color: var(--muted-2); font-size: 0.85rem; }
+
+.awards-list {
+  list-style: none; padding: 0; margin: 0.5rem 0 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 1.5rem;
+  font-size: 0.85rem; color: var(--muted);
+}
+.awards-list li::before {
+  content: '·'; color: var(--green); font-weight: 700;
+  margin-right: 0.4rem; font-size: 1.2rem; line-height: 0; vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+  .pi-bio { grid-template-columns: 1fr; gap: 1rem; }
+  .pi-bio .pi-photo { width: 160px; height: 160px; margin: 0 auto; }
+  .pi-bio .pi-text dl { grid-template-columns: 90px 1fr; }
+  .awards-list { grid-template-columns: 1fr; }
+}
+
+/* ============================================================================
+   PAGE HEADER (subpages)
+   ============================================================================ */
+.page-header {
+  background: var(--hero-bg); color: #fff;
+  border-radius: var(--card-radius);
+  padding: 3.5rem 2.5rem;
+  box-shadow: var(--card-shadow);
+  text-align: left;
+}
+.page-header::after { display: none; }
+.page-header h1 {
+  font-size: 2.4rem; color: #fff; font-weight: 300; letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
+}
+.page-header p {
+  color: rgba(255,255,255,0.7); margin-top: 0; font-weight: 400; font-size: 1rem;
+}
+.page-header a { color: var(--green); }
+
+/* ============================================================================
+   JOIN US — position callouts, fellowship grid, mentor commitments
+   ============================================================================ */
+.position-callout {
+  background: var(--bg-alt);
+  border: none; border-left: 4px solid var(--green);
+  border-radius: 12px;
+  padding: 1.4rem 1.6rem;
+  margin: 1rem 0;
+}
+.position-callout.is-postdoc   { border-left-color: var(--green); }
+.position-callout.is-tech      { border-left-color: var(--blue); }
+.position-callout.is-phd       { border-left-color: var(--magenta); }
+.position-callout.is-undergrad { border-left-color: var(--lehigh-gold); }
+.position-callout .pos-status {
+  display: inline-block; font-size: 0.7rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--green-dark); background: var(--green-light);
+  padding: 3px 10px; border-radius: 999px; margin-bottom: 0.5rem;
+}
+.position-callout.is-tech      .pos-status { color: var(--blue-dark);    background: var(--blue-light); }
+.position-callout.is-phd       .pos-status { color: var(--magenta-dark); background: var(--magenta-light); }
+.position-callout.is-undergrad .pos-status { color: var(--lehigh-brown); background: #f4e7d3; }
+.position-callout h3 {
+  font-size: 1.15rem; font-weight: 500; margin-bottom: 0.4rem; color: var(--text);
+}
+.position-callout p { font-size: 0.95rem; margin-bottom: 0.75rem; color: var(--muted); }
+.position-callout .pos-actions {
+  display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.75rem; align-items: center;
+}
+.position-callout .pos-actions .btn { font-size: 0.85rem; padding: 0.5rem 1.1rem; }
+.position-callout .pos-actions a:not(.btn) { font-size: 0.85rem; color: var(--muted); }
+
+.btn {
+  display: inline-block; background: var(--green); color: #fff; font-weight: 500;
+  font-size: 0.92rem; padding: 0.65rem 1.5rem; border-radius: 999px;
+  transition: background 0.15s, transform 0.15s;
+}
+.btn:hover { background: var(--green-dark); text-decoration: none; transform: translateY(-1px); color: #fff; }
+.btn-magenta { background: var(--magenta); }
+.btn-magenta:hover { background: var(--magenta-dark); }
+.btn-blue { background: var(--blue); }
+.btn-blue:hover { background: var(--blue-dark); }
+
+.fellowship-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1rem; margin: 1rem 0 1.5rem;
+}
+.fellowship-card {
+  background: var(--bg-alt); border-radius: 12px; padding: 1.1rem 1.2rem;
+}
+.fellowship-card .group-label {
+  font-size: 0.7rem; font-weight: 500; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--green-dark); margin-bottom: 0.5rem;
+}
+.fellowship-card.is-magenta .group-label { color: var(--magenta-dark); }
+.fellowship-card.is-blue    .group-label { color: var(--blue-dark); }
+.fellowship-card ul { list-style: none; padding: 0; margin: 0; }
+.fellowship-card li {
+  font-size: 0.85rem; padding: 0.4rem 0; line-height: 1.4;
+  border-bottom: 1px solid var(--border-soft);
+}
+.fellowship-card li:last-child { border-bottom: none; }
+.fellowship-card li .deadline {
+  display: block; font-size: 0.75rem; color: var(--muted-2); margin-top: 2px;
+}
+@media (max-width: 768px) { .fellowship-grid { grid-template-columns: 1fr; } }
+
+.commitments {
+  display: grid; grid-template-columns: repeat(6, 1fr);
+  gap: 0.75rem; margin: 1rem 0;
+}
+.commitment-card {
+  background: var(--bg-alt); border-radius: 12px; padding: 1rem 0.9rem;
+}
+.commitment-card .icon-mark {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--green); color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 0.82rem; font-weight: 500; margin-bottom: 0.5rem;
+}
+.commitment-card.is-magenta .icon-mark { background: var(--magenta); }
+.commitment-card.is-blue    .icon-mark { background: var(--blue); }
+.commitment-card h4 {
+  font-size: 0.92rem; font-weight: 500; margin-bottom: 0.3rem;
+  line-height: 1.25;
+}
+.commitment-card p  {
+  font-size: 0.8rem; color: var(--muted); margin: 0;
+  line-height: 1.45;
+}
+@media (max-width: 1000px) { .commitments { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 600px)  { .commitments { grid-template-columns: repeat(2, 1fr); } }
+
+/* ============================================================================
+   JOB AD pages
+   ============================================================================ */
+.jobad {
+  background: var(--card);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  max-width: 880px; margin: 0 auto;
+  padding: 2.5rem 2.25rem;
+}
+.jobad .jobad-meta {
+  background: var(--bg-alt); border-radius: 12px;
+  padding: 1rem 1.25rem; margin-bottom: 2rem;
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem 1.5rem;
+  font-size: 0.88rem;
+}
+.jobad .jobad-meta dt {
+  font-weight: 500; color: var(--green-dark);
+  text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.06em;
+}
+.jobad.is-tech .jobad-meta dt { color: var(--blue-dark); }
+.jobad .jobad-meta dd { color: var(--text); margin: 0; }
+.jobad h2 {
+  font-size: 1.2rem; font-weight: 500; margin: 1.75rem 0 0.5rem;
+  color: var(--text);
+}
+.jobad h2::after { display: none; }
+.jobad ul { padding-left: 1.4rem; margin: 0.5rem 0 1rem; }
+.jobad ul li { margin-bottom: 0.4rem; color: var(--muted); }
+.jobad p { color: var(--muted); margin-bottom: 1rem; }
+.jobad .apply-cta {
+  background: var(--bg-alt); border-radius: 12px;
+  border: none; border-left: 4px solid var(--green);
+  padding: 1.25rem 1.5rem; margin-top: 2rem;
+}
+.jobad .apply-cta.is-tech { border-left-color: var(--blue); }
+@media (max-width: 600px) { .jobad .jobad-meta { grid-template-columns: 1fr; } }
+
+/* ============================================================================
+   JOIN-SECTION (dark CTA card on home)
+   ============================================================================ */
+.join-section {
+  background: var(--hero-bg); color: #fff;
+  border-radius: var(--card-radius);
+  padding: 2.5rem 2.25rem;
+  box-shadow: var(--card-shadow);
+  text-align: center;
+}
+.join-section::before { display: none; }
+.join-section h2 { color: #fff; font-weight: 300; }
+.join-section h2::after { display: none; }
+.join-section p { color: rgba(255,255,255,0.78); max-width: 600px; margin: 0 auto 1.5rem; }
+
+/* ============================================================================
+   LEHIGH STRIP & FOOTER
+   ============================================================================ */
+.lehigh-strip {
+  background: var(--card);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  padding: 1.75rem 2rem;
+  display: flex; align-items: center; justify-content: center;
+  gap: 2.5rem; flex-wrap: wrap;
+}
+.lehigh-strip img.lehigh-logo { height: 44px; width: auto; flex-shrink: 0; }
+.lehigh-strip .lehigh-info { font-size: 0.92rem; color: var(--muted); line-height: 1.6; }
+.lehigh-strip .lehigh-info strong { color: var(--text); font-weight: 500; }
+
+footer {
+  text-align: center; padding: 1.5rem 2rem 1rem;
+  font-size: 0.85rem; color: var(--muted-2);
+  background: transparent;
+}
+footer a { color: var(--muted); }
+footer a:hover { color: var(--text); }
+footer .footer-logo {
+  height: 32px; width: auto; margin: 0 auto 0.6rem; opacity: 0.65;
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+@media (max-width: 768px) {
+  .canvas { padding: 0 1rem 3rem; gap: 1rem; }
+  section, .hero, .page-header, .jobad, .lehigh-strip, .join-section {
+    padding: 2rem 1.5rem;
+  }
+  .hero h1 { font-size: 2.4rem; }
+  nav { padding: 0.5rem 0.5rem 0.5rem 1rem; }
+  nav .lab-name { font-size: 0.85rem; padding-right: 0.6rem; margin-right: 0.2rem; }
+  nav ul { display: none; }
+  .nav-toggle { display: block; }
+  nav.open ul {
+    display: flex; flex-direction: column; gap: 0.4rem;
+    position: absolute; top: 100%; right: 0; margin-top: 0.5rem;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(14px);
+    padding: 0.5rem; border-radius: 14px;
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  }
+  .pi-bio, .lab-overview { grid-template-columns: 1fr; gap: 1.5rem; }
+}

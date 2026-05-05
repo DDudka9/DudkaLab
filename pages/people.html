@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>People — Dudka Lab</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../images/favicon.png">
+  <style>
+    /* "This could be you" placeholder card — uses cellimage.png as the photo,
+       centered inside the circular frame.                                    */
+    .person-card.is-placeholder .photo {
+      object-fit: cover;
+      object-position: center center;
+      background: #000;     /* matches cellimage.png's black background */
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="lab-name">Dudka <span class="green">Lab</span></a>
+    <button class="nav-toggle" onclick="this.closest('nav').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="people.html" class="active">People</a></li>
+      <li><a href="join.html">Join Us</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="canvas">
+
+<div class="page-header">
+  <h1>People</h1>
+</div>
+
+<!-- ========== PI BIO ========== -->
+<section>
+  <h2>Principal Investigator</h2>
+  <div class="pi-bio">
+    <img class="pi-photo" src="../images/damian.jpg" alt="Damian Dudka">
+    <div class="pi-text">
+      <h3>Damian Dudka, PhD</h3>
+      <p class="pi-role">
+        Assistant Professor · Department of Biological Sciences · Lehigh University<br>
+        <a href="mailto:dad526@lehigh.edu">dad526@lehigh.edu</a>
+        · <a href="https://scholar.google.com/citations?user=fbCTSOUAAAAJ&hl=en" target="_blank">Google Scholar</a>
+      </p>
+
+      <p>
+        I am a cell biologist studying the rapid evolution of chromosome segregation. My research
+        program integrates molecular evolution, gene editing, fluorescence microscopy, and mouse
+        models to understand the origins and functional impacts of the rapid evolution of the chromosome segregation machinery
+        at molecular, cellular, and organismal levels — and what that means for fertility, development, and
+        disease.
+      </p>
+
+      <dl>
+        <dt>Assistant Professor</dt>
+        <dd>
+          Lehigh University, USA · 2026–present<br>
+          <em>"Rapid evolution of chromosome segregation"</em>
+        </dd>
+
+        <dt>Postdoc</dt>
+        <dd>
+          University of Pennsylvania, USA · 2019–2026<br>
+          <em>Lab of Michael Lampson · "Female meiosis and centromere drive"</em>
+        </dd>
+
+        <dt>PhD</dt>
+        <dd>
+          University of Geneva, Switzerland · 2014–2019<br>
+          <em>Lab of Patrick Meraldi · Biomedical Sciences · Mitotic spindle and centrosome function</em>
+        </dd>
+
+        <dt>MS</dt>
+        <dd>
+          University of Warsaw, Poland · 2012–2014<br>
+          <em>Lab of Maria-Anna Ciemerych Litwinienko · Medical biotechnology · Stem cell differentiation </em>
+        </dd>
+
+        <dt>BS</dt>
+        <dd>
+          University of Warsaw, Poland · 2009–2012<br>
+          <em>Biotechnology</em>
+        </dd>
+
+        <dt>Visiting</dt>
+        <dd>
+          MBL Scholar (Harvard, 2018) · EMBO Short-Term Scholar (Warwick, 2016)<br>
+          Erasmus Scholar (Montpellier, 2013) · Visiting Scholar (Rennes, 2011)
+        </dd>
+      </dl>
+
+      <h4 style="margin-top:1.25rem; font-size:0.78rem; font-weight:600; color: var(--green-dark); text-transform: uppercase; letter-spacing:0.06em;">
+        Selected Awards &amp; Fellowships
+      </h4>
+      <ul class="awards-list">
+        <li>Porter Prize for Research Excellence — ASCB · 2025</li>
+        <li>Merton Bernfield Award — ASCB · 2025 (declined)</li>
+        <li>SNSF Early Postdoctoral Fellowship · 2019–2021</li>
+        <li>Physiology Course Research Grant — MBL · 2018</li>
+        <li>Boehringer Ingelheim Fonds Short-Term · 2017</li>
+        <li>EMBO Short-Term Fellowship · 2016</li>
+      </ul>
+
+      <p style="margin-top:1.25rem; font-size:0.88rem; color: var(--muted-2);">
+        <strong style="color: var(--text);">Mentorship.</strong> Prior trainees have gone on to PhD
+        programs at MIT, Cornell, and Thomas Jefferson University.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TEAM GRID ========== -->
+<section>
+  <h2>Team</h2>
+  <div class="people-grid">
+
+    <!-- Open position placeholder — uses cellimage.png centered in the circle -->
+    <div class="person-card is-placeholder">
+      <img class="photo" src="../images/cellimage.png" alt="Open position">
+      <h3>This could be you!</h3>
+      <p class="role">PhD student / Postdoc / Undergraduate</p>
+      <p style="font-size:0.82rem;color:#6b6960;margin-top:0.3rem;">
+        <a href="join.html">See open positions →</a>
+      </p>
+    </div>
+
+    <!--
+    To add a real lab member, copy the block below, uncomment, and fill in details:
+
+    <div class="person-card">
+      <img class="photo" src="../images/placeholder-headshot.jpg" alt="Name">
+      <h3>First Last</h3>
+      <p class="role">PhD Student / Postdoc / Undergraduate</p>
+    </div>
+    -->
+
+  </div>
+
+  <p style="margin-top:3rem;text-align:center;color:#6b6960;">
+    We are building our team — <a href="join.html">join us</a>!
+  </p>
+</section>
+
+<div class="lehigh-strip">
+  <img class="lehigh-logo" src="../images/lehighlogo.png" alt="Lehigh University">
+  <div class="lehigh-info">
+    <strong>Department of Biological Sciences</strong><br>
+    Iacocca Hall, 111 Research Drive<br>
+    Bethlehem, PA 18015
+  </div>
+</div>
+
+<footer>
+  <img class="footer-logo" src="../images/lehighseal.png" alt="Lehigh University">
+  <p>
+    © 2026 Dudka Lab · <a href="https://bio.cas.lehigh.edu/">Biological Sciences</a> · <a href="https://www.lehigh.edu/">Lehigh University</a><br>
+    Contact: <a href="mailto:dad526@lehigh.edu">dad526@lehigh.edu</a>
+  </p>
+</footer>
+
+</div>
+</body>
+</html>

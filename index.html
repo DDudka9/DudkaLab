@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dudka Lab — Evolutionary Cell Biology</title>
+  <meta name="description" content="The Dudka Lab at Lehigh University studies how rapid evolution of chromosome segregation machinery impacts health, fertility, and disease.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+<body>
+
+<!-- ========== NAVIGATION ========== -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="lab-name">Dudka <span class="green">Lab</span></a>
+    <button class="nav-toggle" onclick="this.closest('nav').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="pages/research.html">Research</a></li>
+      <li><a href="pages/publications.html">Publications</a></li>
+      <li><a href="pages/people.html">People</a></li>
+      <li><a href="pages/join.html">Join Us</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="canvas">
+
+<!-- ========== HERO ========== -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1><span class="green">Evolutionary</span> <span class="magenta">Cell Biology</span> Lab</h1>
+    <p class="tagline">
+      We study how the chromosome segregation machinery evolves at breakneck speed —
+      and why that matters for fertility, development, and disease.
+    </p>
+    <p class="affiliation">
+      <a href="https://bio.cas.lehigh.edu/">Department of Biological Sciences</a> ·
+      <a href="https://www.lehigh.edu/">Lehigh University</a>
+    </p>
+  </div>
+</div>
+
+<!-- ========== RESEARCH OVERVIEW ========== -->
+<section id="research">
+  <h2>Research Overview</h2>
+
+  <!-- Lab overview: schematic + paragraph placeholder -->
+  <div class="lab-overview">
+    <div class="overview-text">
+      <!--
+        ===========================================================
+        MAIN PARAGRAPH PLACEHOLDER
+        Replace the <p>...</p> below with your own text.
+        ===========================================================
+      -->
+      <p style="font-style: italic; color: #000000;">
+      <strong>Faithful chromosome segregation is crucial for fertility, development, and tissue homeostasis.</strong>
+      Despite such highly conserved roles, genomic analyses suggest that the chromosome
+      segregation machinery evolves rapidly. This is a fascinating puzzle because chromosome segregation
+      must remain highly accurate to ensure organismal viability and reproduction. Solving this puzzle
+      requires experimental systems that test hypotheses emerging from genomic analyses.
+      <strong>In the Dudka Lab</strong> we are building such systems by combining molecular evolution,
+      gene editing, experimental evolution, confocal microscopy and mouse models.
+      </p>
+    </div>
+    <div class="overview-figure">
+      <img src="images/LabOverview.png" alt="Lab overview: chromosome segregation, centromeric proteins and DNA, and rapid evolution.">
+    </div>
+  </div>
+
+  <!-- Three research direction cards -->
+  <div class="directions" style="margin-top: 3rem;">
+
+    <div class="direction-card dir-blue">
+      <div class="schematic">
+        <img src="images/schematics/Direction1vignette2.png" alt="Direction 1 schematic placeholder">
+      </div>
+      <div>
+        <span class="tag tag-blue">Direction 1</span>
+        <h3>Functional Constraints of Centromeric DNA Evolution</h3>
+        <p>
+          Centromeres govern the conserved process of chromosome segregation, yet they are among the most
+          rapidly changing genomic regions. While centromeric satellite DNA divergence has been linked to disease,
+          understanding the functional constraints of satellite divergence remains a major challenge.
+          <strong>We employ experimental evolution assays in mouse cells to understand satellite expansion — an engine of that divergence.</strong>
+        </p>
+      </div>
+    </div>
+
+    <div class="direction-card dir-green">
+      <div class="schematic">
+        <img src="images/schematics/Direction2vignette2.png" alt="Direction 2 schematic placeholder">
+      </div>
+      <div>
+        <span class="tag tag-green">Direction 2</span>
+        <h3>Functional Impacts of Adaptive Protein Evolution</h3>
+        <p>
+          Rapid evolution of centromeric DNA can lead to chromosome mis-segregation. In response, centromeric proteins
+          are thought to evolve adaptively to restore segregation fidelity. Although ~30% of centromeric proteins evolve
+          adaptively, the functional impacts of these putative adaptations remain virtually unknown.
+          <strong>We leverage molecular evolution analyses to create "mal-adapted proteins" and discover those impacts
+            at cellular and organismal levels, using mouse as a model.</strong>
+
+        </p>
+      </div>
+    </div>
+
+    <div class="direction-card dir-magenta">
+      <div class="schematic">
+        <img src="images/schematics/Direction3vignette2.png" alt="Direction 3 schematic placeholder">
+      </div>
+      <div>
+        <span class="tag tag-magenta">Direction 3</span>
+        <h3>Health Implications of Mutations in Adaptive Sites</h3>
+        <p>
+          Chromosome mis-segregation underlies infertility, congenital diseases, and cancer. Models that predict pathogenicity
+          of mutations typically assume that residue importance correlates with its conservation and protein structure.
+          However, adaptively evolving sites escape that logic, since they rapidly accumulate mutations and are often found in unstructured
+          regions. <strong>We combine molecular evolution and gene editing in human cells to test the impact of patient
+          mutations at adaptive sites in centromeric proteins.</strong>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== SELECTED PUBLICATIONS (with vignettes — only on home page) ========== -->
+<section id="publications">
+  <h2>Selected Publications</h2>
+  <p>Full list on the <a href="pages/publications.html">Publications page</a>
+     · <a href="https://scholar.google.com/citations?user=fbCTSOUAAAAJ&hl=en" target="_blank">Google Scholar</a>.</p>
+
+  <ul class="pub-list">
+
+    <li class="with-vignette">
+      <div class="pub-vignette">
+        <img src="images/schematics/Nature2025vignette.png" alt="Schematic placeholder">
+      </div>
+      <div class="pub-text">
+        <span class="pub-title">Satellite DNA shapes dictate pericentromere packaging in female meiosis.</span><br>
+        <strong>Dudka D</strong>, Dawicki-McKenna JM, Sun X, Beeravolu K, Akera T, Lampson MA, Black BE.<br>
+        <span class="pub-journal">Nature</span> <span class="pub-year">(2025)</span>
+        · <a href="https://doi.org/10.1038/s41586-024-08374-0" target="_blank">doi</a>
+      </div>
+    </li>
+
+    <li class="with-vignette">
+      <div class="pub-vignette">
+        <img src="images/schematics/CurrBiol2025vignette.png" alt="Schematic placeholder">
+      </div>
+      <div class="pub-text">
+        <span class="pub-title">Adaptive evolution of CENP-T modulates centromere binding.</span><br>
+        <strong>Dudka D</strong>, Nguyen A, Boese K, Marescal O, Akins RB, Black BE, Cheeseman I, Lampson MA.<br>
+        <span class="pub-journal">Current Biology</span> <span class="pub-year">(2025)</span>
+        · <a href="https://doi.org/10.1016/j.cub.2025.01.017" target="_blank">doi</a>
+      </div>
+    </li>
+
+    <li class="with-vignette">
+      <div class="pub-vignette">
+        <img src="images/schematics/JCB2023vignette.png" alt="Schematic placeholder">
+      </div>
+      <div class="pub-text">
+        <span class="pub-title">FREEDA: An automated computational pipeline guides experimental testing of protein innovation.</span><br>
+        <strong>Dudka D</strong>, Akins RB, Lampson MA.<br>
+        <span class="pub-journal">Journal of Cell Biology</span> <span class="pub-year">(2023)</span>
+        · <a href="https://doi.org/10.1083/jcb.202212084" target="_blank">doi</a>
+      </div>
+    </li>
+
+    <li class="with-vignette">
+      <div class="pub-vignette">
+        <img src="images/schematics/CurrBiol2019vignette.png" alt="Schematic placeholder">
+      </div>
+      <div class="pub-text">
+        <span class="pub-title">Spindle-length-dependent HURP localization allows centrosomes to control kinetochore-fiber plus-end dynamics.</span><br>
+        <strong>Dudka D</strong>, Castrogiovanni C, Liaudet N, Vassal H, Meraldi P.<br>
+        <span class="pub-journal">Current Biology</span> <span class="pub-year">(2019)</span>
+        · <a href="https://doi.org/10.1016/j.cub.2019.08.061" target="_blank">doi</a>
+      </div>
+    </li>
+
+    <li class="with-vignette">
+      <div class="pub-vignette">
+        <img src="images/schematics/NatComm2018vignette.png" alt="Schematic placeholder">
+      </div>
+      <div class="pub-text">
+        <span class="pub-title">Complete microtubule-kinetochore occupancy favours the segregation of merotelic attachments.</span><br>
+        <strong>Dudka D*</strong>, Noatynska A*, Smith C, Liaudet N, McAinsh AD, Meraldi P.<br>
+        <span class="pub-journal">Nature Communications</span> <span class="pub-year">(2018)</span>
+        · <a href="https://doi.org/10.1038/s41467-018-04427-x" target="_blank">doi</a>
+      </div>
+    </li>
+
+  </ul>
+</section>
+
+<!-- ========== JOIN US ========== -->
+<div class="join-section">
+  <h2>Join Us</h2>
+  <p>
+    We are building our team at Lehigh University. We are always seeking motivated PhD students,
+    postdocs, and undergraduates excited about chromosome biology, cell biology, and evolution.
+  </p>
+  <a href="pages/join.html" class="btn">Open Positions →</a>
+</div>
+
+<!-- ========== LEHIGH BRANDING ========== -->
+<div class="lehigh-strip">
+  <img class="lehigh-logo" src="images/lehighlogo.png" alt="Lehigh University">
+  <div class="lehigh-info">
+    <strong>Department of Biological Sciences</strong><br>
+    Iacocca Hall, 111 Research Drive<br>
+    Bethlehem, PA 18015
+  </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <img class="footer-logo" src="images/lehighseal.png" alt="Lehigh University">
+  <p>
+    © 2026 Dudka Lab · <a href="https://bio.cas.lehigh.edu/">Department of Biological Sciences</a> ·
+    <a href="https://www.lehigh.edu/">Lehigh University</a><br>
+    Iacocca Hall, 111 Research Drive, Bethlehem, PA 18015<br>
+    Contact: <a href="mailto:dad526@lehigh.edu">dad526@lehigh.edu</a>
+  </p>
+</footer>
+
+</div>
+</body>
+</html>

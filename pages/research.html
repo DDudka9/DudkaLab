@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research — Dudka Lab</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../images/favicon.png">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="lab-name">Dudka <span class="green">Lab</span></a>
+    <button class="nav-toggle" onclick="this.closest('nav').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="research.html" class="active">Research</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="people.html">People</a></li>
+      <li><a href="join.html">Join Us</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="canvas">
+
+<div class="page-header">
+  <h1>Lab Vision</h1>
+  <p>Rapid evolution of chromosome segregation — from molecular mechanisms to health implications.</p>
+</div>
+
+<section>
+  <h2>The Big Question</h2>
+  <p>
+    Chromosome mis-segregation leads to infertility, congenital diseases, and cancer. Paradoxically,
+    the chromosome segregation machinery evolves faster than most cellular components. We aim to define
+    the origin of that rapid evolution and the mechanisms that maintain segregation fidelity.
+  </p>
+</section>
+
+<!-- ========== RESEARCH DIRECTIONS (overview + three side-by-side cards) ========== -->
+<section>
+  <h2>Research Directions</h2>
+
+  <!-- Shared overview schematic for all three directions -->
+  <figure class="research-overview-figure">
+    <img src="../images/Researchvignette.png"
+         alt="Overview of the three research directions: from past to present, satellite expansion (Direction 1) leads to reduced fitness, then protein adaptation (Direction 2) restores fitness; Direction 3 asks how disease mutations disrupt this restored state.">
+    <figcaption>
+      From past to present: we hypothesise that architectural proteins constrain rapid satellite expansions (<strong>Direction 1</strong>),
+      reducing organismal fitness (e.g., fertility); centromeric proteins are thought to adapt to restore fitness (<strong>Direction 2</strong>);
+      we propose that disease-relevant mutations at adaptive sites can disrupt this rescue (<strong>Direction 3</strong>).
+    </figcaption>
+  </figure>
+
+  <div class="directions-grid">
+
+    <!-- DIRECTION 1 -->
+    <div class="direction-block dir-blue">
+      <span class="tag tag-blue">Direction 1</span>
+      <h3>Functional Constraints of Centromeric DNA Evolution</h3>
+      <p>
+        Centromeric satellites occupy 6.2% of the human genome and can differ 37-fold between individuals.
+        Despite mounting evidence that this variation is deleterious — linked to Down syndrome and poor cancer
+        prognosis — the functional constrains of this divergence remain unclear.
+      </p>
+      <p>
+        We discovered that two recently emerged mouse centromeric satellites have distinct DNA shapes (minor groove width)
+        due to sequence divergence. Using hybrid mouse oocytes, we showed that the architectural protein HMGA1 recognizes
+        DNA shape to package the <em>musculus</em> centromeric satellite — and that packaging failure disrupts chromosome
+        segregation. We proposed a model: satellites whose DNA shapes can be recognized by available architectural proteins
+        take advantage of these proteins to rapidly expand, contributing to the extraordinary satellite divergence
+        (<strong>Dudka et al., <em>Nature</em> 2025</strong>).
+      </p>
+      <p>
+        <strong>Current work:</strong> We use mouse tissue culture cells as a model of satellite expansion,
+        leveraging experimental evolution assays and digital droplet PCR to test the role of DNA packaging
+        in satellite divergence.
+      </p>
+    </div>
+
+    <!-- DIRECTION 2 -->
+    <div class="direction-block dir-green">
+      <span class="tag tag-green">Direction 2</span>
+      <h3>Functional Impacts of Adaptive Protein Evolution</h3>
+      <p>
+        Our molecular evolution analyses reveal that ~30% of centromeric proteins evolve adaptively in rodents and primates.
+        These adaptations occur in proteins with diverse functions: centromere assembly, microtubule attachment
+        modulation, and stabilization of correct attachments
+        (<strong>Dudka et al., <em>Journal of Cell Biology</em> 2023</strong>).
+      </p>
+      <p>
+        We test how these adaptations maintain faithful segregation by creating "mal-adapted" alleles using gene editing —
+        swapping adaptively evolving regions between closely related rodent and primate species. Our work on
+        CENP-T suggests that adaptive evolution modulates centromere protein function and is important for robust female gametogenesis
+        (<strong>Dudka et al., <em>Current Biology</em> 2025</strong>).
+      </p>
+      <p>
+        <strong>Current work:</strong> We are systematically testing how adaptations in functionally distinct
+        centromeric proteins regulate chromosome segregation and female fertility using cell lines and mouse models.
+      </p>
+    </div>
+
+    <!-- DIRECTION 3 -->
+    <div class="direction-block dir-magenta">
+      <span class="tag tag-magenta">Direction 3</span>
+      <h3>Health Implications of Mutations in Adaptive Sites</h3>
+      <p>
+        Chromosome mis-segregation underlies infertility, congenital diseases and cancer.
+        The vast majority of missense mutations in centromeric proteins are variants of uncertain significance (VUS).
+        Given that many of these mutations occur in adaptively evolving sites, we hypothesize that molecular evolution analyses
+        can reveal new disease-associated mutations in patients, especially those suffering from infertility.
+      </p>
+      <p>
+        <strong>Current work:</strong> We aim to identify new disease mutations in centromeric proteins
+        by intersecting molecular evolution analyses with known human mutations. We use gene editing
+        in human cells and confocal microscopy to test the impact of these mutations on chromosome segregation.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- APPROACHES -->
+<section>
+  <h2>Approaches</h2>
+  <div class="approaches">
+    <div class="approach-card">
+      <span class="tag tag-blue">In silico</span>
+      <h3>Computational Approaches</h3>
+      <p>molecular evolution analyses, pathogenicity prediction testing</p>
+    </div>
+    <div class="approach-card">
+      <span class="tag tag-green">Molecular</span>
+      <h3>Molecular Biology and Genetics</h3>
+      <p>gene editing in mouse and human cells, digital droplet PCR</p>
+    </div>
+    <div class="approach-card">
+      <span class="tag tag-magenta">Imaging</span>
+      <h3>Cell Biology</h3>
+      <p>confocal microscopy, imaging of meiosis and mitosis, image analysis</p>
+    </div>
+    <div class="approach-card">
+      <span class="tag tag-magenta">In&nbsp;vivo</span>
+      <h3>Mouse Models</h3>
+      <p>transgenic and hybrid mice, fertility assays, oocyte microinjection</p>
+    </div>
+  </div>
+</section>
+
+<div class="lehigh-strip">
+  <img class="lehigh-logo" src="../images/lehighlogo.png" alt="Lehigh University">
+  <div class="lehigh-info">
+    <strong>Department of Biological Sciences</strong><br>
+    Iacocca Hall, 111 Research Drive<br>
+    Bethlehem, PA 18015
+  </div>
+</div>
+
+<footer>
+  <img class="footer-logo" src="../images/lehighseal.png" alt="Lehigh University">
+  <p>
+    © 2026 Dudka Lab · <a href="https://bio.cas.lehigh.edu/">Biological Sciences</a> · <a href="https://www.lehigh.edu/">Lehigh University</a><br>
+    Contact: <a href="mailto:dad526@lehigh.edu">dad526@lehigh.edu</a>
+  </p>
+</footer>
+
+</div>
+</body>
+</html>
