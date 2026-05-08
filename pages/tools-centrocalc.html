@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dudka Lab — Centrocalc Documentation</title>
+  <meta name="description" content="Centrocalc documentation: automated 3D centromere quantification from confocal immunofluorescence images.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../images/lehighseal.png">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="lab-name">Dudka <span class="green">Lab</span></a>
+    <button class="nav-toggle" onclick="this.closest('nav').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="people.html">People</a></li>
+      <li><a href="tools.html" class="active">Tools</a></li>
+      <li><a href="join.html">Join Us</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="canvas">
+
+<div class="page-header">
+  <h1>Centrocalc</h1>
+  <p>Automated 3D centromere quantification from confocal immunofluorescence z-stacks.</p>
+</div>
+
+<section>
+  <p style="margin-top:0;"><a href="tools.html">← Back to Tools</a></p>
+
+  <h2>Overview</h2>
+  <p>
+    <strong>Centrocalc</strong> is a Python-based automated program that quantifies centromere intensities
+    from confocal immunofluorescence images. It performs whole-chromosome segmentation, identifies centromeres
+    via difference-of-Gaussians filtering, draws 3D ellipsoid ROIs, and computes per-cell intensities and
+    background-corrected values, exporting both a CSV table and ImageJ ROI files for downstream inspection.
+  </p>
+  <p>
+    Centrocalc was developed alongside FREEDA and is described in the
+    <a href="https://doi.org/10.1083/jcb.202212084" target="_blank">FREEDA paper (J. Cell Biol., 2023)</a>.
+  </p>
+
+  <h3>Links</h3>
+  <ul style="list-style: disc; padding-left: 1.5rem;">
+    <li>Source code: <a href="https://github.com/DDudka9/Centrocalc" target="_blank">github.com/DDudka9/Centrocalc</a></li>
+    <li>Author: R. Brian Akins · License: MIT</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Set up</h2>
+
+  <h3>Python environment</h3>
+  <p>
+    Development was performed using <strong>Python 3.9</strong>. Required third-party packages
+    (<code>numpy</code>, <code>scipy</code>, <code>scikit-image</code>, <code>roifile</code>) are listed in
+    <code>requirements.txt</code> and can be installed via Anaconda. Download the latest Miniconda from
+    <a href="https://docs.conda.io/en/latest/miniconda.html" target="_blank">docs.conda.io</a>.
+  </p>
+
+  <p>To create the environment from the included YAML file, run:</p>
+  <pre style="background: var(--bg-alt); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>conda env create --name centrocalc --file centrocalc.yml</code></pre>
+
+  <p>Or create it manually:</p>
+  <pre style="background: var(--bg-alt); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>conda create --name centrocalc numpy scipy scikit-image roifile python=3.9</code></pre>
+
+  <p>Activate it with:</p>
+  <pre style="background: var(--bg-alt); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>conda activate centrocalc</code></pre>
+
+  <h3>File preparation</h3>
+  <p>
+    The program iterates through image files using a standardized, <strong>case-sensitive</strong> naming pattern
+    where the only difference between files of the same condition is the cell number. For example, this works:
+  </p>
+  <pre style="background: var(--bg-alt); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>CENPO_GFP_s1.TIF
+CENPO_GFP_s2.TIF
+CENPO_GFP_s3.TIF</code></pre>
+
+  <p>The following <strong>does not work</strong> — each line would be treated as a different condition:</p>
+  <pre style="background: var(--bg-alt); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>CENPO_GFP_s1.TIF
+CENPO_GFP_s2.tif     # Different case in extension
+Cenpo_GFP_s3.TIF     # Different case in name
+CENPO_GFP_cell4.TIF  # Different file name</code></pre>
+
+  <p>All images for a run should live in the same folder.</p>
+</section>
+
+<section>
+  <h2>Running quantifications</h2>
+  <p>After activating the conda environment, navigate to the program directory and run:</p>
+  <pre style="background: var(--bg-alt); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>python centrocalc.py</code></pre>
+
+  <p>You will be prompted three times:</p>
+  <ol style="padding-left: 1.5rem;">
+    <li><strong>Path to directory containing mask and data images</strong> — relative or absolute path to the folder containing both the mask images and the images to quantify.</li>
+    <li><strong>Mask file pattern with an * in place of cell number</strong> — for the example above, enter <code>CENPO_GFP_s*.TIF</code>.</li>
+    <li><strong>Data file pattern</strong> — same syntax. May be the same as the mask pattern.</li>
+    <li><strong>Condition name</strong> — a label associated with these data (useful when compiling multiple runs).</li>
+  </ol>
+
+  <p>Outputs:</p>
+  <ul style="list-style: disc; padding-left: 1.5rem;">
+    <li>A <code>.csv</code> file with the quantified data.</li>
+    <li>A folder of <code>.zip</code> files containing ImageJ ROIs — coordinates used for each centromere, viewable in ImageJ.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Operation overview</h2>
+  <p>The program operates in six steps.</p>
+
+  <h3>1. Segment centromere area</h3>
+  <p>
+    If a DAPI stain image is supplied, it is used to isolate centromeres from background. The DAPI image
+    is greyscale-dilated at a width of 16 pixels to ensure centromeres are included, and a threshold is
+    calculated using the <strong>ISODATA method</strong> — separating the image into two pixel groups
+    where the threshold sits midway between the mean intensities of the groups. The lowest such threshold
+    separates cell area from background. If no DAPI image is given, the entire cell is considered.
+  </p>
+
+  <h3>2. Isolate centromeres</h3>
+  <p>
+    Inspired by <em>Vermolen et al., 2008</em>. A difference-of-Gaussians algorithm isolates spots of a
+    known size: three 3D Gaussian convolutions are performed at widths <code>CENTROMERE_RADIUS</code>,
+    <code>CENTROMERE_RADIUS·√2</code>, and <code>CENTROMERE_RADIUS·2</code>. The output is the product of
+    the differences between these Gaussians, isolating spots of centromere size.
+  </p>
+  <p>
+    <strong>Note:</strong> the point-spread function of confocal microscopes is ~3× larger in Z than in
+    X/Y, so the 3D Gaussian is scaled accordingly.
+  </p>
+
+  <h3>3. Find local maxima</h3>
+  <p>
+    A local-maxima algorithm identifies centromere centers. Up to <code>MAX_NUM_MAXIMA</code> spots are
+    chosen, separated by a minimum of <code>MIN_CENTROMERE_DIST</code> pixels by Chebyshev distance
+    (orthogonal and diagonal directions both treated as length 1). Each maximum must be at least
+    <code>MAXIMA_STD_THRESHOLD</code> standard deviations above the mean and at least
+    <code>DIST_FROM_EDGE</code> from the edges in X, Y, and Z independently.
+  </p>
+
+  <h3>4. Draw regions of interest</h3>
+  <p>
+    3D ellipsoid ROIs are drawn around each maximum at a chosen radius. Background ROIs are drawn as
+    larger ellipsoids with the centromere ROI excluded. The rasterization function is from
+    <a href="https://stackoverflow.com/a/69444906/17045291" target="_blank">this Stack Overflow answer</a>.
+    Overlapping ROIs are resolved by distance — each pixel is assigned to its nearest maximum, with
+    distances scaled non-Euclideanly to the radius of the ROI ellipsoid in each dimension.
+  </p>
+
+  <h3>5. Calculate centromere and background signals</h3>
+  <p>Average grayscale pixel values are computed from the data image within each ROI.</p>
+
+  <h3>6. Save to file</h3>
+  <p>
+    Data are saved to a <code>.csv</code> named with date, time-to-the-minute, and condition. Columns:
+  </p>
+  <ul style="list-style: disc; padding-left: 1.5rem;">
+    <li><strong>Condition</strong> — the label provided when running the program; useful for compiling multiple runs.</li>
+    <li><strong>Cell</strong> — the cell number.</li>
+    <li><strong>Centromere Mean</strong> — average grayscale value in the centromere region.</li>
+    <li><strong>Centromere Pixels</strong> — number of pixels in the centromere region.</li>
+    <li><strong>Background Mean</strong> — average grayscale value in the background region.</li>
+    <li><strong>Background Pixels</strong> — number of pixels in the background region.</li>
+    <li><strong>Centromere-Background</strong> — Centromere Mean minus Background Mean.</li>
+    <li><strong>Normalized</strong> — Centromere-Background divided by Background.</li>
+  </ul>
+  <p>In most cases, the most reliable values are in the <strong>Centromere-Background</strong> column.</p>
+  <p>ImageJ ROI files are also saved for cross-referencing the original images.</p>
+</section>
+
+<section>
+  <h2>Tunable parameters</h2>
+  <pre style="background: var(--bg-alt); padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.85rem;"><code>centromere_radius:       # nm; half-width at half-maximum of centromere signal. Default 150.
+xscale:                  # nm/pixel; default 147 (63× objective on Leica 2).
+yscale:                  # nm/pixel; default 147.
+zscale:                  # nm/slice; default 500.
+min_centromere_dist:     # voxels; Chebyshev distance separating centromere centers. Default 2.
+max_num_maxima:          # max number of centromere centers, starting from most intense. Default 38.
+maxima_std_threshold:    # SDs above mask image mean intensity to accept a centromere. Default 0.
+                         # Including this enables a significant speed-up, so it is not optional.
+roi_xradius:             # pixels; radius of centromere ellipsoid in X. Default 4.
+roi_yradius:             # pixels; radius of centromere ellipsoid in Y. Default 4.
+roi_zradius:             # slices; radius of centromere ellipsoid in Z. Default 3.
+dist_from_edge_xy:       # pixels; minimum distance from edge of image for an ROI. Default 20.
+dist_from_edge_z:        # slices; minimum distance from edge of image for an ROI. Default 2.
+bg_xradius:              # pixels; radius of background ellipsoid in X. Default roi_xradius + 1.
+bg_yradius:              # pixels; radius of background ellipsoid in Y. Default roi_yradius + 1.
+bg_zradius:              # slices; radius of background ellipsoid in Z. Default roi_zradius + 1.
+bg_std_threshold:        # SDs above quantified background to include data. Ignored if None. Default None.</code></pre>
+</section>
+
+<section>
+  <h2>Reference</h2>
+  <p>
+    Vermolen BJ, Garini Y, Young IT, Dirks RW, Raz V. (2008). <em>Segmentation and analysis of the
+    three-dimensional redistribution of nuclear components in human mesenchymal stem cells.</em>
+    Cytometry 73A: 816–824. <a href="https://doi.org/10.1002/cyto.a.20612" target="_blank">doi:10.1002/cyto.a.20612</a>.
+  </p>
+</section>
+
+<!-- ========== LEHIGH BRANDING ========== -->
+<div class="lehigh-strip">
+  <img class="lehigh-logo" src="../images/lehighlogo.png" alt="Lehigh University">
+  <div class="lehigh-info">
+    <strong>Department of Biological Sciences</strong><br>
+    Iacocca Hall, 111 Research Drive<br>
+    Bethlehem, PA 18015
+  </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <img class="footer-logo" src="../images/lehighseal.png" alt="Lehigh University">
+  <p>
+    © 2026 Dudka Lab · <a href="https://bio.cas.lehigh.edu/">Department of Biological Sciences</a> ·
+    <a href="https://www.lehigh.edu/">Lehigh University</a><br>
+    Iacocca Hall, 111 Research Drive, Bethlehem, PA 18015<br>
+    Contact: <a href="mailto:dad526@lehigh.edu">dad526@lehigh.edu</a>
+  </p>
+</footer>
+
+</div>
+</body>
+</html>

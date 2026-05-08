@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dudka Lab — Tools</title>
+  <meta name="description" content="Open-source tools developed in the Dudka Lab: FREEDA for detecting positive selection, Centrocalc for centromere quantification, and DNA-shape for satellite DNA analysis.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../images/lehighseal.png">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="lab-name">Dudka <span class="green">Lab</span></a>
+    <button class="nav-toggle" onclick="this.closest('nav').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="people.html">People</a></li>
+      <li><a href="tools.html" class="active">Tools</a></li>
+      <li><a href="join.html">Join Us</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="canvas">
+
+<div class="page-header">
+  <h1>Tools</h1>
+  <p>Open-source software developed for detecting positive selection, quantifying centromere intensities, and analyzing satellite DNA shape.</p>
+</div>
+
+<section>
+  <h2>Software</h2>
+  <p>
+    All tools are open-source and freely available. Each card links to documentation on this site,
+    plus the source code repository on GitHub.
+  </p>
+
+  <div class="directions" style="margin-top: 2rem;">
+
+    <!-- FREEDA -->
+    <div class="direction-card dir-green">
+      <div>
+        <span class="tag tag-green">Molecular evolution</span>
+        <h3>FREEDA</h3>
+        <p>
+          <strong>Finder of Rapidly Evolving Exons in Diverse Assemblies.</strong>
+          A Python-built end-to-end automated pipeline to detect positive selection,
+          designed for experimental cell biologists without training in computational biology.
+          GUI-based; runs on MacOS and Linux (Windows via VirtualBox).
+        </p>
+        <p style="margin-top: 1rem;">
+          <a href="https://ddudka9.github.io/freeda/" target="_blank" class="btn">Documentation →</a>
+          &nbsp;
+          <a href="https://github.com/DDudka9/freeda" target="_blank">GitHub</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Centrocalc -->
+    <div class="direction-card dir-magenta">
+      <div>
+        <span class="tag tag-magenta">Image analysis</span>
+        <h3>Centrocalc</h3>
+        <p>
+          <strong>Automated 3D centromere quantification.</strong>
+          Python tool to quantify centromere intensities from confocal immunofluorescence
+          z-stacks. Segments centromere area, isolates spots via difference-of-Gaussians,
+          and exports per-cell intensities and ImageJ ROIs.
+        </p>
+        <p style="margin-top: 1rem;">
+          <a href="tools-centrocalc.html" class="btn btn-magenta">Documentation →</a>
+          &nbsp;
+          <a href="https://github.com/DDudka9/Centrocalc" target="_blank">GitHub</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- DNA-shape -->
+    <div class="direction-card dir-blue">
+      <div>
+        <span class="tag tag-blue">Genomics</span>
+        <h3>DNA-shape</h3>
+        <p>
+          <strong>Satellite DNA shape quantification.</strong>
+          Python scripts that compute the number of contiguous A/T stretches and
+          tetranucleotides associated with narrow minor grooves in mouse major and
+          minor satellite arrays from long-read assemblies.
+        </p>
+        <p style="margin-top: 1rem;">
+          <a href="tools-dnashape.html" class="btn btn-blue">Documentation →</a>
+          &nbsp;
+          <a href="https://github.com/DDudka9/DNA-shape" target="_blank">GitHub</a>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>Citing</h2>
+  <p>
+    If you use any of these tools in published work, please cite the relevant paper. The FREEDA
+    paper (<em>Dudka, Akins, Lampson · J. Cell Biol. 2023</em>) describes both FREEDA and the development of
+    Centrocalc. The DNA-shape scripts accompany <em>Dudka et al. · Nature 2025</em>. Full citations are
+    on the <a href="publications.html">Publications page</a>.
+  </p>
+</section>
+
+<!-- ========== LEHIGH BRANDING ========== -->
+<div class="lehigh-strip">
+  <img class="lehigh-logo" src="../images/lehighlogo.png" alt="Lehigh University">
+  <div class="lehigh-info">
+    <strong>Department of Biological Sciences</strong><br>
+    Iacocca Hall, 111 Research Drive<br>
+    Bethlehem, PA 18015
+  </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <img class="footer-logo" src="../images/lehighseal.png" alt="Lehigh University">
+  <p>
+    © 2026 Dudka Lab · <a href="https://bio.cas.lehigh.edu/">Department of Biological Sciences</a> ·
+    <a href="https://www.lehigh.edu/">Lehigh University</a><br>
+    Iacocca Hall, 111 Research Drive, Bethlehem, PA 18015<br>
+    Contact: <a href="mailto:dad526@lehigh.edu">dad526@lehigh.edu</a>
+  </p>
+</footer>
+
+</div>
+</body>
+</html>

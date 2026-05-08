@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dudka Lab — DNA-shape Documentation</title>
+  <meta name="description" content="DNA-shape documentation: Python scripts to quantify A/T stretches and narrow-minor-groove tetranucleotides in mouse satellite DNA.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../images/lehighseal.png">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="lab-name">Dudka <span class="green">Lab</span></a>
+    <button class="nav-toggle" onclick="this.closest('nav').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="people.html">People</a></li>
+      <li><a href="tools.html" class="active">Tools</a></li>
+      <li><a href="join.html">Join Us</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="canvas">
+
+<div class="page-header">
+  <h1>DNA-shape</h1>
+  <p>Quantifying A/T stretches and narrow-minor-groove tetranucleotides in mouse satellite DNA arrays.</p>
+</div>
+
+<section>
+  <p style="margin-top:0;"><a href="tools.html">← Back to Tools</a></p>
+
+  <h2>Overview</h2>
+  <p>
+    Based on the long-read assembly of the <em>Mus musculus</em> genome from
+    <a href="https://www.ncbi.nlm.nih.gov/pubmed/33203859" target="_blank">Ton et al., Sci. Data 2020 (PMID: 33203859)</a>
+    (run <code>SRR11606870</code>), and using the major and minor satellite reads from
+    <a href="https://www.ncbi.nlm.nih.gov/pubmed/38378611" target="_blank">Packiaraj &amp; Thakur, Genome Biol. 2024 (PMID: 38378611)</a>
+    as templates, the scripts compute:
+  </p>
+  <ol style="padding-left: 1.5rem;">
+    <li>The number of <strong>contiguous A/T stretches</strong> (default minimum length = 4).</li>
+    <li>The number of <strong>tetranucleotides associated with a narrow minor groove</strong>
+        (per <a href="https://www.ncbi.nlm.nih.gov/pubmed/19865164" target="_blank">Rohs et al., Nature 2009; PMID: 19865164</a>).</li>
+  </ol>
+
+  <h3>Links</h3>
+  <ul style="list-style: disc; padding-left: 1.5rem;">
+    <li>Source code: <a href="https://github.com/DDudka9/DNA-shape" target="_blank">github.com/DDudka9/DNA-shape</a></li>
+    <li>License: MIT</li>
+    <li>Companion paper: <em>Dudka et al., Nature 2025</em> (see <a href="publications.html">Publications</a>).</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Requirements</h2>
+  <ul style="list-style: disc; padding-left: 1.5rem;">
+    <li><strong>Operating system tested:</strong> MacOS (M1) Ventura</li>
+    <li><strong>Language:</strong> Python 3.11</li>
+    <li><strong>Installer:</strong> Miniconda</li>
+    <li><strong>Installation time:</strong> ~10 minutes</li>
+    <li><strong>Code run time:</strong> 10–30 minutes</li>
+    <li><strong>Modules:</strong> <code>blast</code> (v2.6.0), <code>biopython</code> (v1.83),
+        <code>mkl-service</code> (v2.4.0), <code>regex</code> (v2024.5.15)</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Tools to download</h2>
+  <p>(Recommended: terminal / bash.)</p>
+  <ol style="padding-left: 1.5rem;">
+    <li>Download <a href="https://docs.anaconda.com/miniconda/" target="_blank">Miniconda</a>.</li>
+    <li>Install BLAST via Miniconda — see <a href="https://anaconda.org/bioconda/blast" target="_blank">anaconda.org/bioconda/blast</a>.</li>
+    <li>Install <a href="https://github.com/ncbi/sra-tools/wiki/01.-Downloading-SRA-Toolkit" target="_blank">sra-tools</a>.
+        Useful guides:
+        <a href="https://github.com/ncbi/sra-tools/wiki/HowTo:-fasterq-dump" target="_blank">fasterq-dump wiki</a> ·
+        <a href="https://edwards.flinders.edu.au/fastq-dump/" target="_blank">fastq-dump blog</a>.</li>
+    <li>(Recommended) <a href="https://www.jetbrains.com/pycharm/" target="_blank">PyCharm 2023.2.5 Community Edition</a>
+        for running <code>majsat.py</code> and <code>minsat.py</code>.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>Prepare the dataset</h2>
+  <p>(Recommended: terminal / bash.)</p>
+  <ol style="padding-left: 1.5rem;">
+    <li>Download <code>SRR11606870</code> from
+        <a href="https://trace.ncbi.nlm.nih.gov/Traces/?view=run_browser&acc=SRR11606870&display=metadata" target="_blank">NCBI SRA</a>.</li>
+    <li>Prefetch the dataset:
+        <pre style="background: var(--bg-alt); padding: 1rem; border-radius: 8px; margin-top: 0.5rem;"><code>prefetch SRR11606870</code></pre></li>
+    <li>Download all reads unsorted in FASTA format:
+        <pre style="background: var(--bg-alt); padding: 1rem; border-radius: 8px; margin-top: 0.5rem;"><code>fasterq-dump pathtoSRAfile --outdir pathtoSRAfile/fasta --fasta-unsorted</code></pre></li>
+    <li>Rename the output to <code>SRR11606870.fasta</code>.</li>
+    <li>Copy the two template FASTA files (major satellite <code>SRR11606870_2342980.fasta</code> and minor
+        satellite <code>SRR11606870_111923.fasta</code>) from
+        <a href="https://github.com/DDudka9/DNA-shape" target="_blank">the repo</a>
+        into the same folder as <code>SRR11606870.fasta</code>.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>Run the scripts</h2>
+  <p>(In PyCharm 2023.2.5 Community Edition.)</p>
+  <ol style="padding-left: 1.5rem;">
+    <li>Clone the GitHub repository:
+        <em>Git → Clone → URL</em> <code>https://github.com/DDudka9/DNA-shape.git</code></li>
+    <li>Create a new interpreter:
+        <em>Python interpreter (bottom right) → Add New Interpreter → Add Local Interpreter →
+        Conda Environment → Create New Environment</em> (provide the path to Miniconda; select Python 3.11).</li>
+    <li>Select <code>requirements.txt</code> and click <em>Install requirements</em>.</li>
+    <li>Follow instructions inside <code>majsat.py</code> and <code>minsat.py</code>. Use PyCharm's built-in
+        Python Console to run subsequent parts of the scripts by copy-pasting the code into the console
+        and pressing <kbd>Return</kbd>.</li>
+    <li>Output appears in the folder containing <code>SRR11606870_2342980.fasta</code> and
+        <code>SRR11606870_111923.fasta</code>.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>Expected output files</h2>
+  <p>
+    Tetranucleotide column order in all CSV/FASTA outputs:
+    <code>AAAT · AATA · AATC · AATT · AAAA · AAGT · GAAT · GAAA · TAAT · AAAC</code>.
+  </p>
+  <ol style="padding-left: 1.5rem;">
+    <li><code>SRR11606870_Maj_2342980_tetranucleotides.csv</code> —
+        per-1 kb counts of narrow-major-groove tetranucleotides along a representative <strong>major</strong>
+        satellite array (<code>SRR11606870_2342980</code>).</li>
+    <li><code>SRR11606870_Min_111923_tetranucleotides.csv</code> —
+        per-1 kb counts of narrow-minor-groove tetranucleotides along a representative <strong>minor</strong>
+        satellite array (<code>SRR11606870_111923</code>).</li>
+    <li><code>SRR11606870_Maj_tetranucleotides_average.fasta</code> —
+        narrow-major-groove tetranucleotide counts per 234 bp across 500 major satellite arrays
+        (averages at the end of the file).</li>
+    <li><code>SRR11606870_Min_tetranucleotides_average.fasta</code> —
+        same for 500 minor satellite arrays.</li>
+    <li><code>SRR11606870_Maj_ATstretches_average.fasta</code> —
+        AT-stretch counts (default minimum length 4) per 234 bp across 500 major satellite arrays.</li>
+    <li><code>SRR11606870_Min_ATstretches_average.fasta</code> —
+        same for 500 minor satellite arrays.</li>
+  </ol>
+  <p>You can modify the array ID inside the scripts to analyze any other array, or substitute a different dataset entirely.</p>
+</section>
+
+<!-- ========== LEHIGH BRANDING ========== -->
+<div class="lehigh-strip">
+  <img class="lehigh-logo" src="../images/lehighlogo.png" alt="Lehigh University">
+  <div class="lehigh-info">
+    <strong>Department of Biological Sciences</strong><br>
+    Iacocca Hall, 111 Research Drive<br>
+    Bethlehem, PA 18015
+  </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <img class="footer-logo" src="../images/lehighseal.png" alt="Lehigh University">
+  <p>
+    © 2026 Dudka Lab · <a href="https://bio.cas.lehigh.edu/">Department of Biological Sciences</a> ·
+    <a href="https://www.lehigh.edu/">Lehigh University</a><br>
+    Iacocca Hall, 111 Research Drive, Bethlehem, PA 18015<br>
+    Contact: <a href="mailto:dad526@lehigh.edu">dad526@lehigh.edu</a>
+  </p>
+</footer>
+
+</div>
+</body>
+</html>
