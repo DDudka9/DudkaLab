@@ -634,9 +634,60 @@ footer .footer-logo {
 }
 
 /* ============================================================================
+   CAMPUS BANNER (wide photo card)
+   ============================================================================ */
+.campus-banner {
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  background: var(--card);
+  margin: 0;
+}
+.campus-banner img {
+  display: block;
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  object-position: center 38%;
+}
+.campus-banner figcaption {
+  font-size: 0.85rem;
+  color: var(--muted);
+  padding: 0.85rem 1.5rem;
+  text-align: center;
+}
+
+/* Zoomed single banner — shows the whole cropped building at natural aspect */
+.campus-zoom { margin: 0; }
+.campus-zoom img {
+  display: block; width: 100%; height: auto;
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+}
+.campus-zoom figcaption {
+  font-size: 0.85rem; color: var(--muted);
+  text-align: center; padding-top: 0.85rem;
+}
+
+/* Campus gallery — triptych of zoomed building shots */
+.campus-gallery { margin: 0; }
+.campus-gallery .row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+}
+.campus-gallery .row img {
+  display: block; width: 100%; height: 260px; object-fit: cover;
+  border-radius: var(--card-radius); box-shadow: var(--card-shadow);
+}
+.campus-gallery figcaption {
+  font-size: 0.85rem; color: var(--muted);
+  text-align: center; padding-top: 0.85rem;
+}
+
+/* ============================================================================
    RESPONSIVE
    ============================================================================ */
 @media (max-width: 768px) {
+  .campus-banner img { height: 200px; }
   .canvas { padding: 0 1rem 3rem; gap: 1rem; }
   section, .hero, .page-header, .jobad, .lehigh-strip, .join-section {
     padding: 2rem 1.5rem;
@@ -655,4 +706,19 @@ footer .footer-logo {
     box-shadow: 0 4px 16px rgba(0,0,0,0.04);
   }
   .pi-bio, .lab-overview { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+
+/* two-up campus gallery variant */
+.campus-gallery.two .row { grid-template-columns: repeat(2, 1fr); }
+.campus-gallery.two .row img { height: 300px; }
+
+/* ============================================================================
+   LAB VISION HEADER WITH MICROGRAPH (research page)
+   ============================================================================ */
+.page-header.has-fig { display: flex; align-items: center; gap: 2.5rem; padding-top: 2rem; padding-bottom: 2rem; overflow: hidden; }
+.page-header.has-fig .ph-text { flex: 1 1 auto; min-width: 0; }
+.page-header.has-fig .ph-fig { flex: 0 0 auto; width: 360px; max-width: 46%; height: auto; display: block; margin: -2.75rem 0; }
+@media (max-width: 768px) {
+  .page-header.has-fig { flex-direction: column; align-items: center; gap: 1.2rem; text-align: center; }
+  .page-header.has-fig .ph-fig { width: 70%; max-width: 320px; }
 }
