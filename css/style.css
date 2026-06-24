@@ -722,3 +722,22 @@ footer .footer-logo {
   .page-header.has-fig { flex-direction: column; align-items: center; gap: 1.2rem; text-align: center; }
   .page-header.has-fig .ph-fig { width: 70%; max-width: 320px; }
 }
+
+/* ============================================================================
+   LOCATION BAND (map + Lehigh logo + aerial, bottom of home page)
+   ============================================================================ */
+.location-band {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  gap: 1.5rem;
+}
+.location-band .lehigh-strip { margin: 0; }
+.location-band .loc-img {
+  width: 100%; height: auto; display: block; align-self: stretch; object-fit: cover;
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+}
+@media (max-width: 768px) {
+  .location-band { grid-template-columns: 1fr; }
+}
